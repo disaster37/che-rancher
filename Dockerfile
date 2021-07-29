@@ -39,6 +39,12 @@ RUN \
     curl -L  https://github.com/vmware-tanzu/buildkit-cli-for-kubectl/releases/download/v${BUILDKIT_VERSION}/kubectl-buildkit-${BUILDKIT_VERSION}-1.el7.x86_64.rpm -o /tmp/kubectl-buildkit.rpm &&\
     rpm -i /tmp/kubectl-buildkit.rpm
 
+# Install chectl
+RUN \
+    microdnf install -y nodejs &&\
+    cd /home/theia &&\
+    bash -c "bash <(curl -sL  https://www.eclipse.org/che/chectl/)"
+
 # Clean
 RUN \
     microdnf clean all && \
