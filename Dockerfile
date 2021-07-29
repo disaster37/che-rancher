@@ -1,0 +1,45 @@
+
+FROM quay.io/webcenter/che-ubi:latest
+
+ENV \ 
+    KUBECTL_VERSION="v1.18.20" \
+    RANCHER_VERSION="v2.4.6" \
+    HELM_VERSION="v3.6.3" \
+    VAULT_VERSION="1.7.3" \
+    TERRAFORM_VERSION="1.0.3" \
+    TERRAGRUNT_VERSION="v0.31.1" \
+    BUILDKIT_VERSION="0.1.3"
+
+
+# Install some tools
+RUN \
+    echo "Install kubectl" &&\
+    curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/bin/kubectl &&\
+    chmod +x /usr/bin/kubectl &&\
+    echo "Install rancher" &&\
+    curl -o- -L https://github.com/rancher/cli/releases/download/${RANCHER_VERSION}/rancher-linux-amd64-${RANCHER_VERSION}.tar.gz | tar xvz -C /usr/local/bin --strip-components=2 &&\
+    chmod +x /usr/local/bin/rancher &&\
+    echo "Install helm" &&\
+    curl -o- -L https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz | tar xvz -C /usr/local/bin --strip-components=1 &&\
+    chmod +x /usr/local/bin/helm &&\
+    echo "Install vault" &&\
+    curl -L https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip -o /tmp/vault.zip &&\
+    unzip /tmp/vault.zip &&\
+    mv vault /usr/bin/vault &&\
+    chmod +x /usr/bin/vault &&\
+    echo "Install terraform" &&\
+    curl -L https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o /tmp/terraform.zip &&\
+    unzip /tmp/terraform.zip &&\
+    mv terraform /usr/bin/terraform &&\
+    chmod +x /usr/bin/terraform &&\
+    echo "Install terragrunt" &&\
+    curl -L https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 -o /usr/bin/terragrunt &&\
+    chmod +x /usr/bin/terragrunt &&\
+    echo " Install buildkit for kubectl" &&\
+    curl -L  https://github.com/vmware-tanzu/buildkit-cli-for-kubectl/releases/download/v${BUILDKIT_VERSION}/kubectl-buildkit-${BUILDKIT_VERSION}-1.el7.x86_64.rpm -o /tmp/kubectl-buildkit.rpm &&\
+    rpm -i /tmp/kubectl-buildkit.rpm
+
+# Clean
+RUN \
+    microdnf clean all && \
+    rm -rf /tmp/* /var/tmp/*
