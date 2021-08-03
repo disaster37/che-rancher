@@ -49,3 +49,5 @@ RUN \
 RUN \
     microdnf clean all && \
     rm -rf /tmp/* /var/tmp/*
+
+SHELL ["/bin/bash", "-c"]
