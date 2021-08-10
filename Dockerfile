@@ -45,6 +45,10 @@ RUN \
     cd /home/theia &&\
     bash -c "bash <(curl -sL  https://www.eclipse.org/che/chectl/)"
 
+# Tempory fix kubectl-buildkit
+COPY root/ /
+RUN chmod +x "/usr/bin/kubectl-*"
+
 # Clean
 RUN \
     microdnf clean all && \
