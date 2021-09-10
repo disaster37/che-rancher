@@ -47,7 +47,9 @@ RUN \
 
 # Tempory fix kubectl-buildkit
 COPY root/ /
-RUN chmod +x "/usr/bin/kubectl-*"
+RUN \
+  chmod +x "/usr/bin/kubectl-build" && \
+  chmod +x "/usr/bin/kubectl-buildkit"
 
 # Clean
 RUN \
