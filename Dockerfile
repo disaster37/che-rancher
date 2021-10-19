@@ -8,7 +8,7 @@ ENV \
     VAULT_VERSION="1.7.3" \
     TERRAFORM_VERSION="1.0.3" \
     TERRAGRUNT_VERSION="v0.31.1" \
-    BUILDKIT_VERSION="0.1.3"
+    BUILDKIT_VERSION="0.1.4"
 
 
 # Install some tools
@@ -45,11 +45,6 @@ RUN \
     cd /home/theia &&\
     bash -c "bash <(curl -sL  https://www.eclipse.org/che/chectl/)"
 
-# Tempory fix kubectl-buildkit
-COPY root/ /
-RUN \
-  chmod +x "/usr/bin/kubectl-build" && \
-  chmod +x "/usr/bin/kubectl-buildkit"
 
 # Clean
 RUN \
