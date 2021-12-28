@@ -2,7 +2,7 @@
 FROM quay.io/webcenter/che-ubi:latest
 
 ENV \ 
-    KUBECTL_VERSION="v1.18.20" \
+    KUBECTL_VERSION="v1.21.7" \
     RANCHER_VERSION="v2.4.6" \
     HELM_VERSION="v3.7.2" \
     VAULT_VERSION="1.9.2" \
