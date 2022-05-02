@@ -8,7 +8,9 @@ ENV \
     VAULT_VERSION="1.9.2" \
     TERRAFORM_VERSION="1.1.2" \
     TERRAGRUNT_VERSION="v0.35.16" \
-    BUILDKIT_VERSION="0.1.5"
+    BUILDKIT_VERSION="0.1.5" \
+    PLUTO_VERSION="v5.7.0" \
+    DAGGER_VERSION="v0.2.8"
 
 
 # Install some tools
@@ -37,7 +39,14 @@ RUN \
     chmod +x /usr/bin/terragrunt &&\
     echo " Install buildkit for kubectl" &&\
     curl -L  https://github.com/vmware-tanzu/buildkit-cli-for-kubectl/releases/download/v${BUILDKIT_VERSION}/kubectl-buildkit-${BUILDKIT_VERSION}-1.el7.x86_64.rpm -o /tmp/kubectl-buildkit.rpm &&\
-    rpm -i /tmp/kubectl-buildkit.rpm
+    rpm -i /tmp/kubectl-buildkit.rpm &&\
+    echo "Install dagger" &&\
+    curl -o- -L https://github.com/dagger/dagger/releases/download/${DAGGER_VERSION}/dagger_${DAGGER_VERSION}_linux_amd64.tar.gz | tar xvz -C /usr/local/bin --strip-components=0 &&\
+    chmod +x /usr/local/bin/dagger &&\
+    echo "Install plutot" &&\
+    curl -o- -L https://github.com/FairwindsOps/pluto/releases/download/${PLUTO_VERSION}/pluto_${PLUTO_VERSION}_linux_amd64.tar.gz | tar xvz -C /usr/local/bin --strip-components=0 &&\
+    chmod +x /usr/local/bin/dagger
+
 
 # Install chectl
 RUN \
