@@ -9,7 +9,7 @@ ENV \
     TERRAFORM_VERSION="1.1.2" \
     TERRAGRUNT_VERSION="v0.35.16" \
     BUILDKIT_VERSION="0.1.5" \
-    PLUTO_VERSION="v5.7.0" \
+    PLUTO_VERSION="5.7.0" \
     DAGGER_VERSION="v0.2.8"
 
 
@@ -44,7 +44,7 @@ RUN \
     curl -o- -L https://github.com/dagger/dagger/releases/download/${DAGGER_VERSION}/dagger_${DAGGER_VERSION}_linux_amd64.tar.gz | tar xvz -C /usr/local/bin --strip-components=0 &&\
     chmod +x /usr/local/bin/dagger &&\
     echo "Install plutot" &&\
-    curl -o- -L https://github.com/FairwindsOps/pluto/releases/download/${PLUTO_VERSION}/pluto_${PLUTO_VERSION}_linux_amd64.tar.gz | tar xvz -C /usr/local/bin --strip-components=0 &&\
+    curl -o- -L https://github.com/FairwindsOps/pluto/releases/download/v${PLUTO_VERSION}/pluto_${PLUTO_VERSION}_linux_amd64.tar.gz | tar xvz -C /usr/local/bin --strip-components=0 &&\
     chmod +x /usr/local/bin/dagger
 
 
